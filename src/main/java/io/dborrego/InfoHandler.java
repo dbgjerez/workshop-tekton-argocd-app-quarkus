@@ -2,6 +2,7 @@ package io.dborrego;
 
 import java.util.Optional;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -12,7 +13,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import io.dborrego.domain.InfoDTO;
 
 @Path("/q/info")
-public class GreetingResource {
+public class InfoHandler {
 
     @ConfigProperty(name = "info.version", defaultValue=EMPTY_STRING)
     String version;
@@ -24,7 +25,8 @@ public class GreetingResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public InfoDTO hello() {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public InfoDTO info() {
         return new InfoDTO(
             Optional.ofNullable(name).orElse(EMPTY_STRING), 
             Optional.ofNullable(version).orElse(EMPTY_STRING)
